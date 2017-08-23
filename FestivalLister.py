@@ -4,6 +4,10 @@ import math
 import spotipy
 import spotipy.util as util
 
+SPOTIPY_CLIENT_ID='your-spotify-client-id'
+SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
+SPOTIPY_REDIRECT_URI='your-app-redirect-url'
+
 errorlog = open('errorlog.txt','w')
 lineupfile = open('lineup.txt','r')
 lineup = [x.strip('\n') for x in lineupfile.readlines()]
