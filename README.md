@@ -6,6 +6,10 @@ Put lineup.txt in the same folder as the program
 
 Run the program like so: python FestivalLister.py *username* *playlistURI*
 
+Example: python FestivalLister.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi
+
+First time it will open a browser and you will need to copy the url of the page it redirects to and paste that into the prompt
+
 Of course you will need to set your spotify developer credentials first. 
 
 Note - this program is not perfect but it works well enough.
