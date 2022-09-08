@@ -11,6 +11,8 @@
     
     Instructions: https://developer.spotify.com/documentation/general/guides/authorization/app-settings/
 
+    Run `python3 setup.py` and enter your credentials into the prompt
+
 3. From the spotify app panel
 
     - click "edit settings"
@@ -25,19 +27,20 @@
 
     ![](https://i.imgur.com/LdZQFz4.png)
 
-4. Create a Spotify Playlist and copy the link url
+4. Create a Spotify Playlist and copy the part of the link url following `https://open.spotify.com/playlist/` before the `?`. This is the playlist URI
 
     ![](https://i.imgur.com/CanLOQy.png)
+    ![](https://i.imgur.com/sbIkm85.png)
 
-5. Run the program like so: 
+5. Run the program using
 
-    `python main.py *username* *playlistURI*`
+    `python3 main.py *username* spotify:user:[username]:playlist:[playlistURI]`
 
     Example:
 
-    `python main.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi`
+    `python3 main.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi`
 
-6. (First run only) A browser will open. After authorizing, copy the url of the page that the browser redirects to. Paste that url into the prompt
+6. A browser will open. After authorizing (First run only), copy the url of the page that the browser redirects to. Paste that url into the prompt
 
 ------------------------
 
