@@ -2,9 +2,12 @@ import sys
 import spotipy
 import spotipy.util as util
 import os
+import json
 
-os.environ['SPOTIPY_CLIENT_ID'] = 'YOUR_SPOTIPY_CLIENT_ID'
-os.environ['SPOTIPY_CLIENT_SECRET'] = 'YOUR_SPOTIPY_CLIENT_SECRET'
+keys = json.load(open('./credentials.json'))
+
+os.environ['SPOTIPY_CLIENT_ID'] = keys['SPOTIPY_CLIENT_ID']
+os.environ['SPOTIPY_CLIENT_SECRET'] = keys['SPOTIPY_CLIENT_SECRET']
 os.environ['SPOTIPY_REDIRECT_URI'] = 'https://example.com/callback/'
 
 errorlog = open('errorlog.txt', 'w')
