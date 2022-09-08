@@ -1,10 +1,11 @@
 import sys
 import spotipy
 import spotipy.util as util
+import os
 
-SPOTIPY_CLIENT_ID = 'your-spotify-client-id'
-SPOTIPY_CLIENT_SECRET = 'your-spotify-client-secret'
-SPOTIPY_REDIRECT_URI = 'your-app-redirect-url'
+os.environ['SPOTIPY_CLIENT_ID'] = 'YOUR_SPOTIPY_CLIENT_ID'
+os.environ['SPOTIPY_CLIENT_SECRET'] = 'YOUR_SPOTIPY_CLIENT_SECRET'
+os.environ['SPOTIPY_REDIRECT_URI'] = 'https://example.com/callback/'
 
 errorlog = open('errorlog.txt', 'w')
 lineupfile = open('lineup.txt', 'r')
@@ -39,6 +40,7 @@ if token:
         try:
             results = sp.user_playlist_add_tracks(username, playlist_id, tracks[:1], position=None)
         except Exception as e:
+            print('Adding song failed: ')
             print(e)
         tracks = tracks[1:]
 else:
