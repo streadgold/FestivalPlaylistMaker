@@ -31,11 +31,11 @@
 
 5. Run the program like so: 
 
-    `python FestivalLister.py *username* *playlistURI*`
+    `python main.py *username* *playlistURI*`
 
     Example:
 
-    `python FestivalLister.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi`
+    `python main.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi`
 
 6. (First run only) A browser will open. After authorizing, copy the url of the page that the browser redirects to. Paste that url into the prompt
 
