@@ -1,7 +1,9 @@
 # FestivalPlaylistMaker
+
+Huge changes!
 ## Reads in a list of artists and generates a playlist of their top 5 songs on Spotify using Python and Spotipy
 
-1. Create a `lineup.txt` file, and place it in the `FestivalPlaylistMaker` folder
+1. Create a txt file as whatever you want the playlist to be called (ex "Bonnaroo2023.txt"), and place it in the `FestivalPlaylistMaker` folder
 
     - example `lineup.txt` file is provided
     - format as one artist per line
@@ -27,22 +29,15 @@
 
     <img style="width:50%; margin: 1em;" src="https://i.imgur.com/LdZQFz4.png" />
 
-4. Create a Spotify Playlist and copy the part of the link url following `https://open.spotify.com/playlist/` before the `?`. This is the playlist URI
 
-    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/CanLOQy.png" />
+4. Run the program using
 
-    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/sbIkm85.png" />
+    `python3 main.py`
 
-5. Run the program using
+5. A browser will open. After authorizing (First run only), copy the url of the page that the browser redirects to. Paste that url into the prompt
 
-    `python3 main.py *username* spotify:user:[username]:playlist:[playlistURI]`
+The program will now create a playlist based on the name of the first txt file it finds in the directory and populate it with the top 5 (default, change num_songs if you want more/less songs) of the artists listed in that file.
 
-    Example:
+Tested with 159 artist lineup - 790 song playlist works fine.
 
-    `python3 main.py srt252 spotify:user:srt252:playlist:3inHoNcLaV9HjNdxJwZzEi`
-
-6. A browser will open. After authorizing (First run only), copy the url of the page that the browser redirects to. Paste that url into the prompt
-
-------------------------
-
-Note - this program is not perfect but it works well enough.
+Let me know if you have any suggestions for improvements!
