@@ -15,22 +15,23 @@
 
 3. From the spotify app panel
 
-    - click "edit settings"
+- click "edit settings"
 
-    ![](https://i.imgur.com/EWaNUdH.png)
+    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/EWaNUdH.png" />
 
-    - add a redirect URI
+- add a redirect URI
 
-    ![](https://i.imgur.com/0zP92u7.png)
+    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/0zP92u7.png" />
 
-    - and save
+- and save
 
-    ![](https://i.imgur.com/LdZQFz4.png)
+    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/LdZQFz4.png" />
 
 4. Create a Spotify Playlist and copy the part of the link url following `https://open.spotify.com/playlist/` before the `?`. This is the playlist URI
 
-    ![](https://i.imgur.com/CanLOQy.png)
-    ![](https://i.imgur.com/sbIkm85.png)
+    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/CanLOQy.png" />
+
+    <img style="width:50%; margin: 1em;" src="https://i.imgur.com/sbIkm85.png" />
 
 5. Run the program using
 
