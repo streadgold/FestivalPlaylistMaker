@@ -1,8 +1,7 @@
-import sys
-import spotipy
-import spotipy.util as util
-import os
 import json
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+import os
 
 keys = json.load(open('./credentials.json'))
 
@@ -10,43 +9,61 @@ os.environ['SPOTIPY_CLIENT_ID'] = keys['SPOTIPY_CLIENT_ID']
 os.environ['SPOTIPY_CLIENT_SECRET'] = keys['SPOTIPY_CLIENT_SECRET']
 os.environ['SPOTIPY_REDIRECT_URI'] = 'https://example.com/callback/'
 
-errorlog = open('errorlog.txt', 'w')
-lineupfile = open('lineup.txt', 'r')
-lineup = [x.strip('\n') for x in lineupfile.readlines()]
+# Set up Spotify API credentials
+scope = "playlist-modify-public playlist-modify-private"
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
-numberofbands = len(lineup)
-tracks = []
 
-if len(sys.argv) > 2:
-    username = sys.argv[1]
-    playlist_id = sys.argv[2]
-else:
-    print('Usage: %s username playlist_id ...' % (sys.argv[0]))
-    sys.exit()
+def generate_playlist():
+    # Get list of files in directory
+    files = os.listdir()
 
-index = 0
-scope = 'playlist-modify-public'
-token = util.prompt_for_user_token(username, scope, redirect_uri='https://example.com/callback/')
+    # Find the first .txt file in the directory
+    for file in files:
+        if file.endswith(".txt"):
+            file_path = file
+            break
+    else:
+        print("No .txt files found in directory!")
+        return
 
-if token:
-    sp = spotipy.Spotify(auth=token)
-    sp.trace = False
+    # Open file and read in list of artists
+    with open(file_path, "r") as f:
+        artists = f.readlines()
 
-    for x in range(0, len(lineup)):
-        results = sp.search(q=str(lineup[x]), limit=5)
-        for i, t in enumerate(results['tracks']['items']):
-            tracks.append(str(t['id'].strip('u')))
-            print('adding ', t['id'], t['name'])
-    while tracks:
-        print('adding song ', index)
-        index = index + 1
-        try:
-            results = sp.user_playlist_add_tracks(username, playlist_id, tracks[:1], position=None)
-        except Exception as e:
-            print('Adding song failed: ')
-            print(e)
-        tracks = tracks[1:]
-else:
-    print('Cannnot get token for ', username)
+    # Remove any whitespace and empty lines from list of artists
+    artists = [artist.strip() for artist in artists if artist.strip()]
 
-print('Playlist Complete!')
+    # Create empty list to store track IDs
+    track_ids = []
+
+    # Choose the number of songs to add to the playlist from the artist's top tracks (max 10)
+    num_songs = 5
+
+    # Loop through each artist and get their top 5 tracks
+    for artist in artists:
+        results = sp.search(q=artist, type="artist")
+        if results["artists"]["items"]:
+            artist_id = results["artists"]["items"][0]["id"]
+            top_tracks = sp.artist_top_tracks(artist_id)
+            if top_tracks["tracks"]:
+                for i in range(min(num_songs, len(top_tracks["tracks"]))):
+                    try:
+                        track_ids.append(top_tracks["tracks"][i]["id"])
+                        print('adding ', top_tracks["tracks"][i]["id"], ' for artist ', artist)
+                    except Exception as e:
+                        print('Adding song failed: ')
+                        print(e)
+
+    # Create a new playlist and add the top 5 tracks from each artist
+    playlist_name = os.path.splitext(os.path.basename(file_path))[0]
+    playlist = sp.user_playlist_create(user=sp.me()["id"], name=playlist_name)
+
+    # Add tracks to playlist in batches of 100 (to help with large number of artists)
+    for i in range(0, len(track_ids), 100):
+        sp.playlist_add_items(playlist["id"], track_ids[i:i + 100])
+
+    print(f"Playlist '{playlist_name}' created successfully with {len(track_ids)} tracks!")
+
+
+generate_playlist()
