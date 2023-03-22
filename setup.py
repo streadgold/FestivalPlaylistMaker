@@ -1,5 +1,5 @@
-SPOTIPY_CLIENT_ID = input('Enter you Client Id: ')
-SPOTIPY_CLIENT_SECRET = input('Enter you Client Secret: ')
+SPOTIPY_CLIENT_ID = input('Enter your Client Id: ')
+SPOTIPY_CLIENT_SECRET = input('Enter your Client Secret: ')
 
 with open('credentials.json', 'w') as f:
     f.write("{\n")
